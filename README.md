@@ -24,8 +24,10 @@ So why are these temporary accounts necessary? To faciliate the transaction in a
 
 ![escrow_token_accounts_2 9291f5c8](https://github.com/jhuhnke/escrow-journal-jessicahuhnke-solanaq4/assets/91915469/c27fab0d-856a-4614-973a-02efabb903e3)
 
-
+Further, in the escrow code presented in the PaulX blog post, there is no check that verifies that the amount of Token X the taker expects is equal to the amount of Token X in the escrow account. That means when the taker sends an instruction to claim the Token X in the temporary account, they are automatically agreeing to the terms of the escrow as written in the escrow information account. Thus if a "cancel" instruction is added and the rest of the code remains as is, the payer has the ability to claim the taker's Token Y and reclaim Token X. Thus, responsibility falls on the developer to write manual checks to ensure the terms of the escrow have been met.  
 
 ## Anchor Framework 
+
+Anchor on Solana is a framework that offers developers a high-level environment for smart contract development. It utilizes Rust for building secure and efficient programs and integrates an Interface Description Language (IDL) to streamline client interactions. Anchor also provides extensive testing capabilities, simplifying the process of ensuring code reliability. It offers standardized development patterns through convenient macros, enhancing consistency and maintainability. Overall, Anchor's abstractions reduce the complexities associated with blockchain development, fostering a more accessible and robust ecosystem for Solana-based applications. Let's dig into how anchor simplifies writing an escrow. 
 
 ## Based Anchor Framework 
