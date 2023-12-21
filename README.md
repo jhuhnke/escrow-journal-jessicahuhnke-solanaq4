@@ -30,4 +30,13 @@ Further, in the escrow code presented in the PaulX blog post, there is no check 
 
 Anchor on Solana is a framework that offers developers a high-level environment for smart contract development. It utilizes Rust for building secure and efficient programs and integrates an Interface Description Language (IDL) to streamline client interactions. Anchor also provides extensive testing capabilities, simplifying the process of ensuring code reliability. It offers standardized development patterns through convenient macros, enhancing consistency and maintainability. Overall, Anchor's abstractions reduce the complexities associated with blockchain development, fostering a more accessible and robust ecosystem for Solana-based applications. Let's dig into how anchor simplifies writing an escrow. 
 
+Anchor is extended from the vanilla escrow program. However, there is a critical difference. Using anchor escrow, the payer or initializer of an escrow creates a token account vault that has both a PDA key and authority. This means that when the payer sends a transaction to the escrow program to initialize the vault, a vault and escrow account to store state will be created and the token to be exchanged will be sent from the payer to the vault. 
+
+![VmRKZUy](https://github.com/jhuhnke/escrow-journal-jessicahuhnke-solanaq4/assets/91915469/7415c90d-205a-4d17-b162-62015b2942a6)
+
+In an exchange using the Anchor framework, the taker sends a transaction to the escrow to exchange their Token B for the payer's Token A. When this happens, the taker's Token B is first transferred from the taker to the payer. Then the payer's Token A that is being kept in the vault is transferred to the taker. Lastly both the vault and the escrow account are closed. This eliminates the need of the creation of a second temporary token account, as the taker's tokens are sent directly to the initializer. 
+
+![MzG26dm](https://github.com/jhuhnke/escrow-journal-jessicahuhnke-solanaq4/assets/91915469/7bbe0949-0330-4792-8ddd-ea5dd33cee6f)
+
+
 ## Based Anchor Framework 
