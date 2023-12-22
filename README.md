@@ -45,3 +45,23 @@ Anchor also greatly reduces the friction of cancelling an escrow. If the payer s
 Anchor is great, but like many frameworks it was created to fulfill the needs of it's creators. Can it be improved any further? You bet! 
 
 ## Based Anchor Framework 
+
+One example of an improved Anchor escrow is [Based Anchor](https://github.com/deanmlittle/anchor-escrow-2023/tree/master) created by Dean Little. This codebase uses multiple newer features of Anchor that were not available when the Iron Addicted Dog article was written. Further, the codebase much better factored and breaks each function into it's own file resulting in greater usability. So let's see how Based Anchor improves upon the original Anchor escrow. Because this code is factored so nicely, let's look at how each component differs from that of the OG Anchor Escrow. 
+
+**Note:** This section will lack diagrams, because I'm too lazy to create them.
+
+**Make Function** 
+
+Like the Anchor Make function in Iron Addicted Dog, account initialization for the escrow and vault account uses seeds to create PDAs. However, in Based Anchor, the vault account is associated with both the token and the escrow account's key. This ensures that the vault can only be accessed by the escrow program according to the logic defined within it. This makes it more difficult if not impossible to move funds outside of the conditions enforced by the escrow. 
+
+**Refund Function**
+
+The Based Anchor refund mechanism introduces several improvements in security and operational clarity. It uses explicit seeding for account generation, which ties the vault directly to the escrow account, strengthening the link between them. Additionally, the separation into two distinct functions for emptying and closing the vault allows for a more controlled refund operation, enabling actions to be taken step-wise and reducing the risk of errors. The auth account, while being marked as unchecked, does not compromise security since it's not holding any funds, thereby simplifying the process without adding unnecessary risk. This approach to account handling and transaction processing ensures that the operations are performed securely and as intended, providing a clear and managed workflow for the refund process.
+
+**Take Function**
+
+The Based Anchor take function also presents several improvements in structure and clarity over vanilla Anchor. It explicitly defines the roles of the payer and taker in the escrow process, using distinct accounts for each action (deposit and withdraw). This separation enhances the readability and manageability of the code. Additionally, the use of the init_if_needed attribute for account initialization suggests a more dynamic approach, possibly reducing the overhead of account management. The explicit handling of the auth account, despite being marked unchecked, provides a clearer understanding of its role in the transaction process. Overall, these enhancements contribute to a more robust and user-friendly implementation of the escrow process.
+
+**Update Function**
+
+Based Anchor also expands on the functionality of the original Anchor escrow by adding an Update function. This allows the payer / initiator of the escrow transaction to update the escrow agreement's terms, specifically changing the taker's token mint and amount. The update struct accesses the escrow account using a combination of seeds, ensuring secure access. The update function alters the token to be received by the taker and the amount offered. This flexible approach allows for dynamic adjustments to escrow terms during its lifecycle.
