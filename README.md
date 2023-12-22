@@ -38,5 +38,10 @@ In an exchange using the Anchor framework, the taker sends a transaction to the 
 
 ![MzG26dm](https://github.com/jhuhnke/escrow-journal-jessicahuhnke-solanaq4/assets/91915469/7bbe0949-0330-4792-8ddd-ea5dd33cee6f)
 
+Anchor also greatly reduces the friction of cancelling an escrow. If the payer sends a transaction to the escrow program to cancel the escrow, the tokens in the vault are transferred back to the initializer and the vault and escrow account are closed. This eliminates the possibility that a cancel transaction could be front-run if a forgetful dev does not add appropriate checks into the code. 
+
+![f6ahGXy](https://github.com/jhuhnke/escrow-journal-jessicahuhnke-solanaq4/assets/91915469/51fb98e3-6712-43ab-86bf-c49f81e5be00)
+
+Anchor is great, but like many frameworks it was created to fulfill the needs of it's creators. Can it be improved any further? You bet! 
 
 ## Based Anchor Framework 
